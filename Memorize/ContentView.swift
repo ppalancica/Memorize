@@ -1,12 +1,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    let emojis: Array<String> = ["👻", "🎃", "🕷️", "😈"]
+    
     var body: some View {
         HStack() {
-            CardView(content: "👻", isFaceUp: false)
-            CardView(content: "👻", isFaceUp: true)
-            CardView(content: "👻", isFaceUp: true)
-            CardView(content: "👻", isFaceUp: true)
+            CardView(content: emojis[0], isFaceUp: false)
+            CardView(content: emojis[1], isFaceUp: true)
+            CardView(content: emojis[2], isFaceUp: true)
+            CardView(content: emojis[3], isFaceUp: true)
         }
         .padding()
     }
