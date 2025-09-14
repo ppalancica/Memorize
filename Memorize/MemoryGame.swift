@@ -20,9 +20,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     
     mutating func shuffle() {
         cards.shuffle()
+        print(cards)
     }
     
-    struct Card: Equatable, Identifiable {
+    struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
         // No need to specify the full name MemoryGame<CardContent.Card
         // Just use Card
         //
@@ -39,6 +40,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         let content: CardContent
         
         var id: String
+        
+        var debugDescription: String {
+            "\(id): \(content) \(isFaceUp ? "up" : "down") \(isMatched ? "matched" : "")"
+        }
         
         // NOTES:
         //
