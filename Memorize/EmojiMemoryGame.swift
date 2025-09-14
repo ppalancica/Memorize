@@ -3,7 +3,7 @@ import SwiftUI
 // The ViewModel is part of the UI, so we import SwiftUI
 // It doesn't create Views, but it knows about UI-dependent things like Colors, Images etc.
 
-class EmojiMemoryGame {
+class EmojiMemoryGame: ObservableObject {
     
     private static let emojis = ["👻", "🎃", "🕷️", "😈", "💀", "🕸️", "🧙", "🙀", "👹", "😱", "☠️", "🍭"]
     
@@ -17,10 +17,16 @@ class EmojiMemoryGame {
         }
     }
     
-    private var model = createMemoryGame()
+    @Published private var model = createMemoryGame()
     
     var cards: Array<MemoryGame<String>.Card> {
         return model.cards
+    }
+    
+    // MARK: - Intents
+    
+    func shuffle() {
+        model.shuffle()
     }
     
     func choose(_ card: MemoryGame<String>.Card) {
