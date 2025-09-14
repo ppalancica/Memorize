@@ -1,6 +1,6 @@
 import Foundation
 
-struct MemoryGame<CardContent> {
+struct MemoryGame<CardContent> where CardContent: Equatable {
     
     private(set) var cards: Array<Card>
     
@@ -22,7 +22,18 @@ struct MemoryGame<CardContent> {
         cards.shuffle()
     }
     
-    struct Card {
+    struct Card: Equatable {
+        // No need to specify the full name MemoryGame<CardContent.Card
+        // Just use Card
+        //
+        // NOTE: When the == function simply compares all the properties, the function below is automaticaly synthesized
+        //
+        // static func == (lhs: Card, rhs: Card) -> Bool {
+        //    return lhs.isFaceUp == rhs.isFaceUp &&
+        //    lhs.isMatched == rhs.isMatched &&
+        //    lhs.content == rhs.content
+        // }
+        
         var isFaceUp = true
         var isMatched = false
         let content: CardContent
