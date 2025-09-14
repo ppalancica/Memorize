@@ -16,6 +16,16 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     
     private var indexOfTheOneAndOnlyFaceUpCard: Int? {
         get {
+            let faceUpCardIndices = cards.indices.filter { index in cards[index].isFaceUp }
+            return faceUpCardIndices.count == 1 ? faceUpCardIndices.first : nil
+        }
+        set {
+            cards.indices.forEach { cards[$0].isFaceUp = (newValue == $0) }
+        }
+    }
+    
+    /* private var indexOfTheOneAndOnlyFaceUpCard: Int? {
+        get {
             var faceUpCardIndices: [Int] = []
             for index in cards.indices {
                 if cards[index].isFaceUp {
@@ -37,7 +47,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                 }
             }
         }
-    }
+    } */
     
     mutating func choose(_ card: Card) {
         // card.isFaceUp.toggle() won't work, cause card is a copy and a let
