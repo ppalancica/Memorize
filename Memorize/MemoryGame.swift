@@ -14,8 +14,19 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    func choose(_ card: Card) {
-        
+    mutating func choose(_ card: Card) {
+        // card.isFaceUp.toggle() won't work, cause card is a copy and a let
+        let chosenIndex = index(of: card)
+        cards[chosenIndex].isFaceUp.toggle()
+    }
+    
+    private func index(of card: Card) -> Int {
+        for index in cards.indices {
+            if cards[index].id == card.id {
+                return index
+            }
+        }
+        return 0 // FIXME: bogus!
     }
     
     mutating func shuffle() {
