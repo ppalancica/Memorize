@@ -1,6 +1,6 @@
 import Foundation
 
-struct MemorizeGame<CardContent> {
+struct MemoryGame<CardContent> {
     
     var cards: Array<Card>
     

@@ -5,9 +5,9 @@ import SwiftUI
 
 class EmojiMemoryGame {
     
-    var model: MemorizeGame<String>
+    var model: MemoryGame<String>
     
-    init(model: MemorizeGame<String>) {
+    init(model: MemoryGame<String>) {
         self.model = model
     }
 }
