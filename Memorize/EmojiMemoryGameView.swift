@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct EmojiMemoryGameView: View {
     
     // var viewModel: EmojiMemoryGame
     
@@ -48,5 +48,5 @@ struct CardView: View {
 }
 
 #Preview {
-    ContentView()
+    EmojiMemoryGameView()
 }
