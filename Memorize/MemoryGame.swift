@@ -15,13 +15,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
     
     private var indexOfTheOneAndOnlyFaceUpCard: Int? {
-        get {
-            let faceUpCardIndices = cards.indices.filter { index in cards[index].isFaceUp }
-            return faceUpCardIndices.count == 1 ? faceUpCardIndices.first : nil
-        }
-        set {
-            cards.indices.forEach { cards[$0].isFaceUp = (newValue == $0) }
-        }
+        get { cards.indices.filter { index in cards[index].isFaceUp }.only }
+        set { cards.indices.forEach { cards[$0].isFaceUp = (newValue == $0) } }
     }
     
     /* private var indexOfTheOneAndOnlyFaceUpCard: Int? {
@@ -114,5 +109,11 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         //
         //    It's ok to specify even UI-related types, because whoever is going to create the MemorizeGame - will probbaly be in UI.
         //    For instance, a ViewModel is part of the UI, so it can specify a UI type.
+    }
+}
+
+extension Array {
+    var only: Element? {
+        count == 1 ? first : nil
     }
 }
