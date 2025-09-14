@@ -7,13 +7,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            HStack() {
-                ForEach(0..<cardCount, id: \.self) { index in
-                    CardView(content: emojis[index], isFaceUp: true)
-                }
-            }
-            .foregroundStyle(.orange)
-            
+            cards
             HStack {
                 cardRemover
                 Spacer()
@@ -23,6 +17,15 @@ struct ContentView: View {
             .font(.largeTitle)
         }
         .padding()
+    }
+    
+    var cards: some View {
+        HStack() {
+            ForEach(0..<cardCount, id: \.self) { index in
+                CardView(content: emojis[index], isFaceUp: true)
+            }
+        }
+        .foregroundStyle(.orange)
     }
     
     var cardRemover: some View {
