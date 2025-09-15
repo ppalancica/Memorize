@@ -10,9 +10,9 @@ struct EmojiMemoryGameView: View {
                 cards
                     .animation(.default, value: viewModel.cards)
             }
-        }
-        Button("Shuffle") {
-            viewModel.shuffle()
+            Button("Shuffle") {
+                viewModel.shuffle()
+            }
         }
         .padding()
     }
