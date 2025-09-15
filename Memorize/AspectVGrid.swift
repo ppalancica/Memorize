@@ -6,6 +6,14 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View { // where Item: Id
     var aspectRatio: CGFloat = 0
     var content: (Item) -> ItemView // View or some View wont' work
     
+    init(_ items: [Item],
+         aspectRatio: CGFloat,
+         @ViewBuilder content: @escaping (Item) -> ItemView) {
+        self.items = items
+        self.aspectRatio = aspectRatio
+        self.content = content
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             let gridItemSize = gridItemWidthThatFits(
