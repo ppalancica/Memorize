@@ -126,6 +126,52 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         //
         //    It's ok to specify even UI-related types, because whoever is going to create the MemorizeGame - will probbaly be in UI.
         //    For instance, a ViewModel is part of the UI, so it can specify a UI type.
+        
+        // MARK: - Bonus Time
+        
+        // Call this when the card transitions to face up state
+        private mutating func startUsingBonusTime() {
+            if isFaceUp && !isMatched && bonusPercentRemaining > 0, lastFaceUpDate == nil {
+                lastFaceUpDate = Date()
+            }
+        }
+        
+        // Call this when the card goes back face down or gets matched
+        private mutating func stopUsingBonusTime() {
+            pastFaceUpTime = faceUpTime
+            lastFaceUpDate = nil
+        }
+        
+        // The bonus earned so far (one point for every second of the bonusTimeLimit that was not used)
+        // This gets smaller and smaller the longer the card remains face up without being matched
+        var bonus: Int {
+            Int(bonusTimeLimit * bonusPercentRemaining)
+        }
+        
+        // Percentage of the bonus time remaining
+        var bonusPercentRemaining: Double {
+            bonusTimeLimit > 0 ? max(0, bonusTimeLimit - faceUpTime) / bonusTimeLimit : 0
+        }
+        
+        // How long this card has ever been face up and unmatched during its lifetime.
+        // Basically, pastFaceUpTime + time since pastFaceUpTime
+        var faceUpTime: TimeInterval {
+            if let lastFaceUpDate {
+                return pastFaceUpTime + Date().timeIntervalSince(lastFaceUpDate)
+            } else {
+                return pastFaceUpTime
+            }
+        }
+        
+        // Can be zero which would mean "no bonus available" for matching this card quickly
+        var bonusTimeLimit: TimeInterval = 6
+        
+        // The last time this card was turned face up
+        var lastFaceUpDate: Date?
+        
+        // The accumulated time this card was face up in the past
+        // (i.e. not including the current time it's been face up if it is currently so)
+        var pastFaceUpTime: TimeInterval = 0
     }
 }
 

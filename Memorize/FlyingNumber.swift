@@ -1,10 +1,3 @@
-//
-//  FlyingNumber.swift
-//  Memorize
-//
-//  Created by Pavel Palancica  on 16.09.2025.
-//
-
 import SwiftUI
 
 struct FlyingNumber: View {
