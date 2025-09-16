@@ -57,14 +57,38 @@ struct EmojiMemoryGameView: View {
                 .overlay(FlyingNumber(number: scoreChange(causedBy: card)))
                 .onTapGesture {
                     withAnimation { // (.easeInOut(duration: 3))
+                        let scoreBeforeChoosing = viewModel.score
                         viewModel.choose(card)
+                        let scoreChange = viewModel.score - scoreBeforeChoosing
+                        lastScoreChange = (scoreChange, causedByCardId: card.id) // Can also omit the second label of the argument
                     }
                 }
         }
     }
     
+    //
+    // Card.ID is basically String
+    //
+    // @State private var lastScoreChange: (amount: Int, causedByCardId: Card.ID) = (amount: 0, causedByCardId: "")
+    //
+    // The above is same as:
+    //
+    // @State private var lastScoreChange = (amount: 0, causedByCardId: "")
+    //
+    // The type of 'lastScoreChange' is (amount: Int, causedByCardId: Card.ID) in both cases
+    //
+    @State private var lastScoreChange = (0, causedByCardId: "")
+    
     private func scoreChange(causedBy card: Card) -> Int {
-        return 0
+        let (amount, id) = lastScoreChange
+        
+        return card.id == id ? amount : 0
+        
+        // Can also use the label:
+        // let (amount, causedByCardId: id) = lastScoreChange
+        
+        // Can also do this:
+        // return lastScoreChange.1 == card.id ? lastScoreChange.0 : 0
     }
     
     // UNUSED
