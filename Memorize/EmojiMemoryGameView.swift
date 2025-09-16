@@ -11,6 +11,7 @@ struct EmojiMemoryGameView: View {
         VStack {
             // ScrollView {
             cards
+                .foregroundStyle(viewModel.color)
                 .animation(.default, value: viewModel.cards)
                 // .background(.red)
             // }
@@ -32,7 +33,6 @@ struct EmojiMemoryGameView: View {
                     viewModel.choose(card)
                 }
         }
-        .foregroundStyle(viewModel.color)
     }
     
     // UNUSED
