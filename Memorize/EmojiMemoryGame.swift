@@ -20,7 +20,11 @@ class EmojiMemoryGame: ObservableObject {
     @Published private var model = createMemoryGame()
     
     var cards: Array<CardView.Card> {
-        return model.cards
+        model.cards
+    }
+    
+    var color: Color {
+        .orange
     }
     
     // MARK: - Intents
