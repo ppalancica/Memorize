@@ -58,13 +58,17 @@ struct EmojiMemoryGameView: View {
                 .zIndex(scoreChange(causedBy: card) != 0 ? 100 : 0)
                 .onTapGesture {
                     withAnimation { // (.easeInOut(duration: 3))
-                        let scoreBeforeChoosing = viewModel.score
-                        viewModel.choose(card)
-                        let scoreChange = viewModel.score - scoreBeforeChoosing
-                        lastScoreChange = (scoreChange, causedByCardId: card.id) // Can also omit the second label of the argument
+                        choose(card)
                     }
                 }
         }
+    }
+    
+    private func choose(_ card: Card) {
+        let scoreBeforeChoosing = viewModel.score
+        viewModel.choose(card)
+        let scoreChange = viewModel.score - scoreBeforeChoosing
+        lastScoreChange = (scoreChange, causedByCardId: card.id) // Can also omit the second label of the argument
     }
     
     //
