@@ -20,6 +20,8 @@ struct CardView: View {
                     .multilineTextAlignment(.center)
                     .aspectRatio(1, contentMode: .fit)
                     .padding(5)
+                    .rotationEffect(.degrees(card.isMatched ? 360 : 0))
+                    .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: card.isMatched)
             )
             .padding(Constants.Pie.inset)
             // .modifier(Cardify(isFaceUp: card.isFaceUp))
