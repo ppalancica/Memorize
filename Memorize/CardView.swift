@@ -20,6 +20,7 @@ struct CardView: View {
                     .padding(Constants.Pie.inset)
                     // .modifier(Cardify(isFaceUp: card.isFaceUp))
                     .cardify(isFaceUp: card.isFaceUp)
+                    .transition(.scale) // .opacity is the default transition to use when we remove or add a View to the hierarchy
             } else {
                 Color.clear
             }
