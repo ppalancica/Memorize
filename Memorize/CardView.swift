@@ -14,7 +14,7 @@ struct CardView: View {
         TimelineView(.animation) { timeline in
             Pie(endAngle: .degrees(card.bonusPercentRemaining * 360))
                 .opacity(Constants.Pie.opacity)
-                .overlay(cardContents)
+                .overlay(cardContents.padding(Constants.Pie.inset))
                 .padding(Constants.Pie.inset)
                 // .modifier(Cardify(isFaceUp: card.isFaceUp))
                 .cardify(isFaceUp: card.isFaceUp)
@@ -28,7 +28,6 @@ struct CardView: View {
             .minimumScaleFactor(Constants.FontSize.scaleFactor) // Was 0.01
             .multilineTextAlignment(.center)
             .aspectRatio(1, contentMode: .fit)
-            .padding(5)
             .rotationEffect(.degrees(card.isMatched ? 360 : 0))
             .animation(.spin(duration: 1), value: card.isMatched)
     }
