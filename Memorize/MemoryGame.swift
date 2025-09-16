@@ -102,6 +102,11 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         
         var isFaceUp = false {
             didSet {
+                if isFaceUp {
+                    startUsingBonusTime()
+                } else {
+                    stopUsingBonusTime()
+                }
                 if oldValue && !isFaceUp {
                     hasBeenSeen = true
                 }
@@ -109,7 +114,15 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
         
         var hasBeenSeen = false
-        var isMatched = false
+        
+        var isMatched = false {
+            didSet {
+                if isMatched {
+                    stopUsingBonusTime()
+                }
+            }
+        }
+        
         let content: CardContent
         
         var id: String
