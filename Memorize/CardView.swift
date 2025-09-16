@@ -1,9 +1,12 @@
 import SwiftUI
 
 struct CardView: View {
-    let card: MemoryGame<String>.Card
     
-    init(_ card: MemoryGame<String>.Card) {
+    typealias Card = MemoryGame<String>.Card
+    
+    let card: Card
+    
+    init(_ card: Card) {
         self.card = card
     }
     
@@ -28,7 +31,16 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView(MemoryGame<String>.Card(content: "X", id: "TestID"))
-        .padding()
-        .foregroundStyle(.green)
+    
+    // NOTE: cannot use typealias inside #Preview
+    // 
+    // typealias Card = MemoryGame<String>.Card
+    //
+    
+    HStack {
+        CardView(CardView.Card(isFaceUp: true, content: "X", id: "TestID1"))
+        CardView(CardView.Card(content: "X", id: "TestID1"))
+    }
+    .padding()
+    .foregroundStyle(.green)
 }
