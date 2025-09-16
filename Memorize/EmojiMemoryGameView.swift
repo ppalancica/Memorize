@@ -20,17 +20,9 @@ struct EmojiMemoryGameView: View {
                 // .background(.red)
             // }
             HStack {
-                Text("Score: \(viewModel.score)")
+                score
                 Spacer()
-                Button("Shuffle") {
-                    // withAnimation(.easeInOut(duration: 2)) {
-                    // withAnimation(.linear(duration: 2)) {
-                    // withAnimation(.interactiveSpring(response: 1, dampingFraction: 0.5)) {
-                    withAnimation {
-                        viewModel.shuffle()
-                    }
-                }
-                // .background(Color.blue)
+                shuffle
             }
             .font(.largeTitle)
         }
@@ -39,12 +31,28 @@ struct EmojiMemoryGameView: View {
         // .background(.yellow) - will have different effect
     }
     
+    private var score: some View {
+        Text("Score: \(viewModel.score)")
+    }
+    
+    private var shuffle: some View {
+        Button("Shuffle") {
+            // withAnimation(.easeInOut(duration: 2)) {
+            // withAnimation(.linear(duration: 2)) {
+            // withAnimation(.interactiveSpring(response: 1, dampingFraction: 0.5)) {
+            withAnimation {
+                viewModel.shuffle()
+            }
+        }
+        // .background(Color.blue)
+    }
+    
     private var cards: some View {
         AspectVGrid(viewModel.cards, aspectRatio: aspectRatio) { card in
             CardView(card)
                 .padding(spacing)
                 .onTapGesture {
-                    withAnimation(.easeInOut(duration: 3)) {
+                    withAnimation { // (.easeInOut(duration: 3))
                         viewModel.choose(card)
                     }
                 }
