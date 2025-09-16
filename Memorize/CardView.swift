@@ -12,13 +12,17 @@ struct CardView: View {
     
     var body: some View {
         TimelineView(.animation) { timeline in
-            Pie(endAngle: .degrees(card.bonusPercentRemaining * 360))
-                .opacity(Constants.Pie.opacity)
-                .overlay(cardContents.padding(Constants.Pie.inset))
-                .padding(Constants.Pie.inset)
-                // .modifier(Cardify(isFaceUp: card.isFaceUp))
-                .cardify(isFaceUp: card.isFaceUp)
-                .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
+            if card.isFaceUp || !card.isMatched {
+                // Fade out but no Card flip when a card disappears
+                Pie(endAngle: .degrees(card.bonusPercentRemaining * 360))
+                    .opacity(Constants.Pie.opacity)
+                    .overlay(cardContents.padding(Constants.Pie.inset))
+                    .padding(Constants.Pie.inset)
+                    // .modifier(Cardify(isFaceUp: card.isFaceUp))
+                    .cardify(isFaceUp: card.isFaceUp)
+            } else {
+                Color.clear
+            }
         }
     }
     
