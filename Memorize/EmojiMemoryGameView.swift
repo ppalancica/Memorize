@@ -33,6 +33,7 @@ struct EmojiMemoryGameView: View {
     
     private var score: some View {
         Text("Score: \(viewModel.score)")
+            .animation(nil) // Do not animate changes to this view
     }
     
     private var shuffle: some View {
