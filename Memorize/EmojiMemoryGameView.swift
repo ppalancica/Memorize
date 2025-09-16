@@ -12,22 +12,27 @@ struct EmojiMemoryGameView: View {
             // ScrollView {
             cards
                 .foregroundStyle(viewModel.color)
-                // Shuffling is realted to User's Intent
+                // Shuffling is related to User's Intent
                 // Better do it in Button's action
                 // Implicit Animation (applies to any change to the card, not just shuffling). Clicking a card would Fade In and Fade Out
                 // If we remove this line - we lose the nice animation on Card flip
                 // .animation(.default, value: viewModel.cards)
                 // .background(.red)
             // }
-            Button("Shuffle") {
-                // withAnimation(.easeInOut(duration: 2)) {
-                // withAnimation(.linear(duration: 2)) {
-                // withAnimation(.interactiveSpring(response: 1, dampingFraction: 0.5)) {
-                withAnimation {
-                    viewModel.shuffle()
+            HStack {
+                Text("Score: \(viewModel.score)")
+                Spacer()
+                Button("Shuffle") {
+                    // withAnimation(.easeInOut(duration: 2)) {
+                    // withAnimation(.linear(duration: 2)) {
+                    // withAnimation(.interactiveSpring(response: 1, dampingFraction: 0.5)) {
+                    withAnimation {
+                        viewModel.shuffle()
+                    }
                 }
+                // .background(Color.blue)
             }
-            // .background(Color.blue)
+            .font(.largeTitle)
         }
         // .background(.yellow)
         .padding()
