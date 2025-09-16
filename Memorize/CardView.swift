@@ -11,22 +11,26 @@ struct CardView: View {
     }
     
     var body: some View {
-        Pie(endAngle: .degrees(card.bonusPercentRemaining * 360))
-            .opacity(Constants.Pie.opacity)
-            .overlay(
-                Text(card.content)
-                    .font(.system(size: Constants.FontSize.largest))
-                    .minimumScaleFactor(Constants.FontSize.scaleFactor) // Was 0.01
-                    .multilineTextAlignment(.center)
-                    .aspectRatio(1, contentMode: .fit)
-                    .padding(5)
-                    .rotationEffect(.degrees(card.isMatched ? 360 : 0))
-                    .animation(.spin(duration: 1), value: card.isMatched)
-            )
-            .padding(Constants.Pie.inset)
-            // .modifier(Cardify(isFaceUp: card.isFaceUp))
-            .cardify(isFaceUp: card.isFaceUp)
-            .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
+        TimelineView(.animation) { timeline in
+            Pie(endAngle: .degrees(card.bonusPercentRemaining * 360))
+                .opacity(Constants.Pie.opacity)
+                .overlay(cardContents)
+                .padding(Constants.Pie.inset)
+                // .modifier(Cardify(isFaceUp: card.isFaceUp))
+                .cardify(isFaceUp: card.isFaceUp)
+                .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
+        }
+    }
+    
+    private var cardContents: some View {
+        Text(card.content)
+            .font(.system(size: Constants.FontSize.largest))
+            .minimumScaleFactor(Constants.FontSize.scaleFactor) // Was 0.01
+            .multilineTextAlignment(.center)
+            .aspectRatio(1, contentMode: .fit)
+            .padding(5)
+            .rotationEffect(.degrees(card.isMatched ? 360 : 0))
+            .animation(.spin(duration: 1), value: card.isMatched)
     }
     
     // UNUSED
