@@ -12,8 +12,7 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         VStack {
             // ScrollView {
-            cards
-                .foregroundStyle(viewModel.color)
+            cards.foregroundColor(viewModel.color)
                 // Shuffling is related to User's Intent
                 // Better do it in Button's action
                 // Implicit Animation (applies to any change to the card, not just shuffling). Clicking a card would Fade In and Fade Out
@@ -24,7 +23,7 @@ struct EmojiMemoryGameView: View {
             HStack {
                 score
                 Spacer()
-                deck
+                deck.foregroundColor(viewModel.color)
                 Spacer()
                 shuffle
             }
@@ -65,10 +64,13 @@ struct EmojiMemoryGameView: View {
                         }
                     }
                     // .transition(.scale) // .opacity
-                    .transition(.offset(
+                    /* .transition(.offset(
                         x: CGFloat.random(in: -1000...1000),
                         y: CGFloat.random(in: -1000...1000)
-                    ))
+                    )) */
+                    .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+                    // .transition(.identity) // No transition at all?
+                    .transition(.asymmetric(insertion: .identity, removal: .identity)) // It does not override matchedGeometry
             }
         }
         /* .onAppear() {
@@ -91,14 +93,19 @@ struct EmojiMemoryGameView: View {
         viewModel.cards.filter { !isDealt($0) }
     }
     
+    @Namespace private var dealingNamespace
+    
     private var deck: some View {
         ZStack {
             ForEach(undealtCards) { card in
                 CardView(card)
-                    .transition(.offset(
+                    /* .transition(.offset(
                         x: CGFloat.random(in: -1000...1000),
                         y: CGFloat.random(in: -1000...1000)
-                    ))
+                    )) */
+                    .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+                    // .transition(.identity) // No transition at all?
+                    .transition(.asymmetric(insertion: .identity, removal: .identity)) // It does not override matchedGeometry
             }
         }
         .frame(width: deckWidth, height: deckWidth / aspectRatio)
