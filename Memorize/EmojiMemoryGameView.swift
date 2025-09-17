@@ -114,15 +114,18 @@ struct EmojiMemoryGameView: View {
         }
         .frame(width: deckWidth, height: deckWidth / aspectRatio)
         .onTapGesture() {
-            // Deal the cards
-            var delay: TimeInterval = 0
-            
-            for card in viewModel.cards {
-                withAnimation(dealAnimation.delay(delay)) {
-                    _ = dealt.insert(card.id)
-                }
-                delay += dealInterval
+            deal() // Deal the cards
+        }
+    }
+    
+    private func deal() {
+        var delay: TimeInterval = 0
+        
+        for card in viewModel.cards {
+            withAnimation(dealAnimation.delay(delay)) {
+                _ = dealt.insert(card.id)
             }
+            delay += dealInterval
         }
     }
     
