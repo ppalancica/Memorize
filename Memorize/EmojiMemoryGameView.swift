@@ -62,6 +62,11 @@ struct EmojiMemoryGameView: View {
                             choose(card)
                         }
                     }
+                    // .transition(.scale) // .opacity
+                    .transition(.offset(
+                        x: CGFloat.random(in: -1000...1000),
+                        y: CGFloat.random(in: -1000...1000)
+                    ))
             }
         }
         .onAppear() {
