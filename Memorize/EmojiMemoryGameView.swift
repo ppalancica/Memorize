@@ -24,6 +24,8 @@ struct EmojiMemoryGameView: View {
             HStack {
                 score
                 Spacer()
+                deck
+                Spacer()
                 shuffle
             }
             .font(.largeTitle)
@@ -69,14 +71,14 @@ struct EmojiMemoryGameView: View {
                     ))
             }
         }
-        .onAppear() {
+        /* .onAppear() {
             // Deal the cards
             withAnimation(.easeInOut(duration: 2)) {
                 for card in viewModel.cards {
                     dealt.insert(card.id)
                 }
             }
-        }
+        } */
     }
     
     @State private var dealt = Set<Card.ID>()
@@ -88,6 +90,29 @@ struct EmojiMemoryGameView: View {
     private var undealtCards: [Card] {
         viewModel.cards.filter { !isDealt($0) }
     }
+    
+    private var deck: some View {
+        ZStack {
+            ForEach(undealtCards) { card in
+                CardView(card)
+                    .transition(.offset(
+                        x: CGFloat.random(in: -1000...1000),
+                        y: CGFloat.random(in: -1000...1000)
+                    ))
+            }
+        }
+        .frame(width: deckWidth, height: deckWidth / aspectRatio)
+        .onTapGesture() {
+            // Deal the cards
+            withAnimation(.easeInOut(duration: 2)) {
+                for card in viewModel.cards {
+                    dealt.insert(card.id)
+                }
+            }
+        }
+    }
+    
+    private let deckWidth: CGFloat = 50
     
     private func choose(_ card: Card) {
         let scoreBeforeChoosing = viewModel.score
